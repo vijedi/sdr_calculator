@@ -4,8 +4,9 @@
         &.masthead {
             background: url('../images/building1-mask.jpg') no-repeat center center fixed;
             background-size: cover;
+            padding: 3em 0;
             h1 {
-                margin-top: 3em;
+                margin: 3em auto 1em auto;
                 font-size: 3em;
             }
         }
