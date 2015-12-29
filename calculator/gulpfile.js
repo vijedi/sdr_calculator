@@ -10,6 +10,7 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
     livereload = require('gulp-livereload'),
+    addsrc = require('gulp-add-src'),
     del = require('del');
 
 gulp.task('sass', function() {
@@ -23,10 +24,27 @@ gulp.task('sass', function() {
             ;
 });
 
+gulp.task('vendorcss', function() {
+    return gulp.src('src/css/**/*.css').
+            pipe(concat('vendor.css')).
+            pipe(minifycss()).
+            pipe(gulp.dest('dist/assets/css')).
+            pipe(notify({message: 'Vendor CSS task complete'}))
+            ;
+});
+
+gulp.task('docs', function() {
+    return gulp.src('src/**/*.html').
+            pipe(gulp.dest('dist/')).
+            pipe(notify({message: 'Docs task complete'}))
+            ;
+});
+
+
 gulp.task('clean', function() {
-    return del(['dist/assets/css']);
+    return del(['dist/assets/css', 'dist/**/*.html']);
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('sass');
+    gulp.start('sass', 'docs', 'vendorcss');
 });
