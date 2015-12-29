@@ -48,6 +48,13 @@ gulp.task('fonts', function() {
 });
 
 
+gulp.task('images', function() {
+    return gulp.src('src/images/**/*').
+            pipe(gulp.dest('dist/assets/images')).
+            pipe(notify({message: 'Images task complete'}))
+            ;
+});
+
 gulp.task('vendorjs', function() {
     return gulp.src('src/js/vendor/**/*.js').
             pipe(concat('vendor.min.js')).
@@ -70,11 +77,11 @@ gulp.task('appjs', function() {
 
 
 gulp.task('clean', function() {
-    return del(['dist/assets/css', 'dist/**/*.html', 'dist/assets/js', 'dist/assets/fonts']);
+    return del(['dist/assets/css', 'dist/**/*.html', 'dist/assets/js', 'dist/assets/fonts', 'dist/assets/images']);
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('sass', 'docs', 'vendorcss', 'vendorjs', 'appjs', 'fonts');
+    gulp.start('sass', 'docs', 'vendorcss', 'vendorjs', 'appjs', 'fonts', 'images');
 });
 
 gulp.task('watch', function() {
