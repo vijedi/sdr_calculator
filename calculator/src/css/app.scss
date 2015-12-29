@@ -1,0 +1,9 @@
+#SdrCalculator {
+    .ui {
+        // Overrides for semantic ui classes
+        &.masthead h1 {
+            margin-top: 3em;
+            font-size: 3em;
+        }
+    }
+}
