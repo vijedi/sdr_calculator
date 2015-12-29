@@ -17,7 +17,7 @@ gulp.task('sass', function() {
     return sass('src/css/*.scss', {style: 'expanded'}).
             pipe(autoprefixer('last 2 versions')).
             pipe(gulp.dest('dist/assets/css')).
-            pipe(rename({suffix: '.min'})).
+            pipe(rename({suffix: '.min.css'})).
             pipe(minifycss()).
             pipe(gulp.dest('dist/assets/css')).
             pipe(notify({message: 'Sass task complete'}))
@@ -26,7 +26,7 @@ gulp.task('sass', function() {
 
 gulp.task('vendorcss', function() {
     return gulp.src('src/css/**/*.css').
-            pipe(concat('vendor.css')).
+            pipe(concat('vendor.min.css')).
             pipe(minifycss()).
             pipe(gulp.dest('dist/assets/css')).
             pipe(notify({message: 'Vendor CSS task complete'}))
@@ -40,11 +40,37 @@ gulp.task('docs', function() {
             ;
 });
 
+gulp.task('vendorjs', function() {
+    return gulp.src('src/js/vendor/**/*.js').
+            pipe(concat('vendor.min.js')).
+            pipe(uglify()).
+            pipe(gulp.dest('dist/assets/js')).
+            pipe(notify({ message: 'Scripts task complete' }))
+            ;
+});
+
+gulp.task('appjs', function() {
+    return gulp.src('src/js/app/**/*.js').
+            pipe(concat('app.js')).
+            pipe(gulp.dest('dist/assets/js')).
+            pipe(rename({suffix: '.min'})).
+            pipe(uglify()).
+            pipe(gulp.dest('dist/assets/js')).
+            pipe(notify({ message: 'Scripts task complete' }))
+            ;
+});
+
 
 gulp.task('clean', function() {
-    return del(['dist/assets/css', 'dist/**/*.html']);
+    return del(['dist/assets/css', 'dist/**/*.html', 'dist/assets/js']);
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('sass', 'docs', 'vendorcss');
+    gulp.start('sass', 'docs', 'vendorcss', 'vendorjs', 'appjs');
+});
+
+gulp.task('watch', function() {
+    gulp.watch('src/js/app/**/*.js', ['appjs']);
+    gulp.watch('src/css/*.scss', ['sass']);
+    gulp.watch('src/**/*.html', ['docs']);
 });
