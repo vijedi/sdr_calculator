@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    browserify = require('browserify'),
     sass = require('gulp-ruby-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
@@ -12,6 +13,13 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     addsrc = require('gulp-add-src'),
     babel = require('gulp-babel'),
+    sourcemaps = require('gulp-sourcemaps'),
+    gutil = require('gulp-util'),
+    buffer = require('vinyl-buffer'),
+    source = require('vinyl-source-stream'),
+    through = require('through2'),
+    globby = require('globby'),
+    babelify = require('babelify'),
     del = require('del');
 
 gulp.task('sass', function() {
@@ -52,7 +60,12 @@ gulp.task('images', function() {
 });
 
 gulp.task('vendorjs', function() {
-    return gulp.src('src/js/vendor/**/*.js').
+    return gulp.src([
+                'src/js/vendor/react-with-addons-0.14.3.js',
+                'src/js/vendor/react-dom-0.14.3.js',
+                'src/js/vendor/jquery-2.1.4.js',
+                'src/js/vendor/semantic.min.js'
+            ]).
             pipe(concat('vendor.min.js')).
             pipe(uglify()).
             pipe(gulp.dest('dist/assets/js'))
@@ -60,14 +73,51 @@ gulp.task('vendorjs', function() {
 });
 
 gulp.task('appjs', function() {
-    return gulp.src('src/js/app/**/*.jsx').
-            pipe(babel({presets: ['react', 'es2015']})).
-            pipe(concat('app.js')).
-            pipe(gulp.dest('dist/assets/js')).
-            pipe(rename({suffix: '.min'})).
-            pipe(uglify()).
-            pipe(gulp.dest('dist/assets/js'))
-            ;
+    // gulp expects tasks to return a stream, so we create one here.
+    var bundledStream = through();
+
+    bundledStream
+        // turns the output bundle stream into a stream containing
+        // the normal attributes gulp plugins expect.
+        .pipe(source('app.js'))
+        // the rest of the gulp task, as you would normally write it.
+        // here we're copying from the Browserify + Uglify2 recipe.
+        .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
+        // Add gulp plugins to the pipeline here.
+        .pipe(uglify())
+        .on('error', gutil.log)
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest('./dist/assets/js/'));
+
+    // "globby" replaces the normal "gulp.src" as Browserify
+    // creates it's own readable stream.
+    globby(['src/js/app/*.js']).then(function(entries) {
+        // create the Browserify instance.
+        var b = browserify({
+            entries: entries,
+            debug: true,
+            transform: [['babelify', {'presets': ['react', 'es2015']}]]
+        });
+
+        // pipe the Browserify stream into the stream we created earlier
+        // this starts our gulp pipeline.
+        b.bundle().pipe(bundledStream);
+    }).catch(function(err) {
+        // ensure any errors from globby are handled
+        bundledStream.emit('error', err);
+    });
+
+    // finally, we return the stream, so gulp knows when this task is done.
+    return bundledStream;
+//    return gulp.src('src/js/app/**/*.jsx').
+//            pipe(babel({presets: ['react', 'es2015']})).
+//            pipe(concat('app.js')).
+//            pipe(gulp.dest('dist/assets/js')).
+//            pipe(rename({suffix: '.min'})).
+//            pipe(uglify()).
+//            pipe(gulp.dest('dist/assets/js'))
+//            ;
 });
 
 

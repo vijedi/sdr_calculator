@@ -1,6 +1,6 @@
 import React from 'react';
 
-class SdrCostForm extends React.component {
+class SdrCostForm extends React.Component {
     
     constructor() {
         super();
