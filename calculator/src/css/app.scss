@@ -10,5 +10,16 @@
                 font-size: 3em;
             }
         }
+
+        &.vertical.stripe {
+            padding: 8em 0;
+            p {
+                font-size: 1.33em;
+            }
+
+            h3 {
+                font-size: 2em;
+            }
+        }
     }     
 }
