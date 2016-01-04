@@ -64,7 +64,9 @@ gulp.task('vendorjs', function() {
                 'src/js/vendor/react-with-addons-0.14.3.js',
                 'src/js/vendor/react-dom-0.14.3.js',
                 'src/js/vendor/jquery-2.1.4.js',
-                'src/js/vendor/semantic.min.js'
+                'src/js/vendor/semantic.min.js',
+                'src/js/vendor/redux.js',
+                'src/js/vendor/react-redux.js'
             ]).
             pipe(concat('vendor.min.js')).
             pipe(uglify()).
