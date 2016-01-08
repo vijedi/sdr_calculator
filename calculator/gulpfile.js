@@ -20,6 +20,7 @@ var gulp = require('gulp'),
     through = require('through2'),
     globby = require('globby'),
     babelify = require('babelify'),
+    debug = require('gulp-debug'),
     del = require('del');
 
 gulp.task('sass', function() {
@@ -28,7 +29,7 @@ gulp.task('sass', function() {
             pipe(gulp.dest('dist/assets/css')).
             pipe(rename({suffix: '.min'})).
             pipe(minifycss()).
-            pipe(gulp.dest('dist/assets/css'))
+            pipe(gulp.dest('dist/assets/css/app'))
             ;
 });
 
@@ -36,7 +37,7 @@ gulp.task('vendorcss', function() {
     return gulp.src('src/css/**/*.css').
             pipe(concat('vendor.min.css')).
             pipe(minifycss()).
-            pipe(gulp.dest('dist/assets/css'))
+            pipe(gulp.dest('dist/assets/css/vendor'))
             ;
 });
 
@@ -70,7 +71,7 @@ gulp.task('vendorjs', function() {
             ]).
             pipe(concat('vendor.min.js')).
             pipe(uglify()).
-            pipe(gulp.dest('dist/assets/js'))
+            pipe(gulp.dest('dist/assets/js/vendor'))
             ;
 });
 
@@ -90,7 +91,7 @@ gulp.task('appjs', function() {
         .pipe(uglify())
         .on('error', gutil.log)
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./dist/assets/js/'));
+        .pipe(gulp.dest('./dist/assets/js/app'));
 
     // "globby" replaces the normal "gulp.src" as Browserify
     // creates it's own readable stream.
@@ -124,11 +125,19 @@ gulp.task('appjs', function() {
 
 
 gulp.task('clean', function() {
+    return del(['dist/assets/css/app', 'dist/**/*.html', 'dist/assets/js/app', 'dist/assets/fonts', 'dist/assets/images']);
+});
+
+gulp.task('clean_all', function() {
     return del(['dist/assets/css', 'dist/**/*.html', 'dist/assets/js', 'dist/assets/fonts', 'dist/assets/images']);
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('sass', 'docs', 'vendorcss', 'vendorjs', 'appjs', 'fonts', 'images');
+    gulp.start('sass', 'docs', 'appjs', 'fonts', 'images');
+});
+
+gulp.task('all', ['clean_all'], function() {
+    gulp.start('vendorcss', 'vendorjs', 'sass', 'docs', 'appjs', 'fonts', 'images');
 });
 
 gulp.task('watch', function() {
