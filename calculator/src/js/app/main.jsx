@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
-import SdrCostForm from './components/sdr-cost-form';
-import Masthead from './components/masthead';
+import SdrCostForm from './components/sdr-cost-form.jsx';
+import Masthead from './components/masthead.jsx';
 
 renderForm();
 

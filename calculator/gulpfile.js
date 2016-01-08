@@ -91,7 +91,7 @@ gulp.task('appjs', function() {
 
     // "globby" replaces the normal "gulp.src" as Browserify
     // creates it's own readable stream.
-    globby(['src/js/app/*.js']).then(function(entries) {
+    globby(['src/js/app/*.js', 'src/js/app/*.jsx']).then(function(entries) {
         // create the Browserify instance.
         var b = browserify({
             entries: entries,
@@ -109,14 +109,6 @@ gulp.task('appjs', function() {
 
     // finally, we return the stream, so gulp knows when this task is done.
     return bundledStream;
-//    return gulp.src('src/js/app/**/*.jsx').
-//            pipe(babel({presets: ['react', 'es2015']})).
-//            pipe(concat('app.js')).
-//            pipe(gulp.dest('dist/assets/js')).
-//            pipe(rename({suffix: '.min'})).
-//            pipe(uglify()).
-//            pipe(gulp.dest('dist/assets/js'))
-//            ;
 });
 
 
