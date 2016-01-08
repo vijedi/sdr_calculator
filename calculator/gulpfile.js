@@ -29,7 +29,7 @@ gulp.task('sass', function() {
             pipe(gulp.dest('dist/assets/css')).
             pipe(rename({suffix: '.min'})).
             pipe(minifycss()).
-            pipe(gulp.dest('dist/assets/css/app'))
+            pipe(gulp.dest('dist/assets/css'))
             ;
 });
 
@@ -37,7 +37,7 @@ gulp.task('vendorcss', function() {
     return gulp.src('src/css/**/*.css').
             pipe(concat('vendor.min.css')).
             pipe(minifycss()).
-            pipe(gulp.dest('dist/assets/css/vendor'))
+            pipe(gulp.dest('dist/assets/vendor/css'))
             ;
 });
 
@@ -48,8 +48,8 @@ gulp.task('docs', function() {
 });
 
 gulp.task('fonts', function() {
-    return gulp.src('src/fonts/**/*').
-            pipe(gulp.dest('dist/assets/css/themes/default/assets/fonts'))
+    return gulp.src('src/fonts/vendor/**/*').
+            pipe(gulp.dest('dist/assets/vendor/css/themes/default/assets/fonts'))
             ;
 });
 
@@ -62,16 +62,12 @@ gulp.task('images', function() {
 
 gulp.task('vendorjs', function() {
     return gulp.src([
-                'src/js/vendor/react-with-addons-0.14.3.js',
-                'src/js/vendor/react-dom-0.14.3.js',
                 'src/js/vendor/jquery-2.1.4.js',
-                'src/js/vendor/semantic.min.js',
-                'src/js/vendor/redux.js',
-                'src/js/vendor/react-redux.js'
+                'src/js/vendor/semantic.min.js'
             ]).
             pipe(concat('vendor.min.js')).
             pipe(uglify()).
-            pipe(gulp.dest('dist/assets/js/vendor'))
+            pipe(gulp.dest('dist/assets/vendor/js'))
             ;
 });
 
@@ -91,7 +87,7 @@ gulp.task('appjs', function() {
         .pipe(uglify())
         .on('error', gutil.log)
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./dist/assets/js/app'));
+        .pipe(gulp.dest('./dist/assets/js'));
 
     // "globby" replaces the normal "gulp.src" as Browserify
     // creates it's own readable stream.
@@ -129,7 +125,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('clean_all', function() {
-    return del(['dist/assets/css', 'dist/**/*.html', 'dist/assets/js', 'dist/assets/fonts', 'dist/assets/images']);
+    return del(['dist/**/*']);
 });
 
 gulp.task('default', ['clean'], function() {
