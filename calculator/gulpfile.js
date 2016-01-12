@@ -129,7 +129,7 @@ gulp.task('all', ['clean_all'], function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch('src/js/app/**/*.js', ['appjs']);
+    gulp.watch(['src/js/app/**/*.js', 'src/js/app/**/*.jsx'], ['appjs']);
     gulp.watch('src/css/*.scss', ['sass']);
     gulp.watch('src/**/*.html', ['docs']);
 });

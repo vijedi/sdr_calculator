@@ -6,14 +6,14 @@ function totalComp(state = {}, action) {
         case SET_TOTAL_COMP: 
             return Object.assign({}, state, {
                 totalComp: action.comp
-            })
+            });
         default: 
-            state
+            return state;
     }
 }
 
 const sdrCalcApp = combineReducers({
     totalComp
-})
+});
 
 export default sdrCalcApp

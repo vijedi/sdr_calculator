@@ -1,12 +1,19 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 import SdrCostForm from './components/sdr-cost-form.jsx';
 import Masthead from './components/masthead.jsx';
+import sdrCalcApp from './reducers/reducers';
+
+
+let store = createStore(sdrCalcApp);
 
 renderForm();
 
 function renderForm() {
     render(
+        <Provider store={store}>
             <div className='pusher'>
                 <Masthead/>
                 <div className='ui vertical stripe segment'>
@@ -28,5 +35,6 @@ function renderForm() {
                    </div>
                 </div>
             </div>
+        </Provider>
  , document.getElementById('ReactContainer'));    
 }
