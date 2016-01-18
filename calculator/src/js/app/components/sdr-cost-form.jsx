@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setTotalComp } from '../actions/actions';
+import { setTotalComp, setAcv } from '../actions/actions';
 import LabeledTextField from './labeled-text-field.jsx';
 
 class SdrCostForm extends React.Component {
@@ -10,7 +10,7 @@ class SdrCostForm extends React.Component {
     }
 
     render() { 
-        const { dispatch, totalComp } = this.props;
+        const { dispatch, totalComp, acv } = this.props;
         return (
             <form className='ui form'>
                 <h3 className='ui dividing header'>Do You Have Enough Leads?</h3>
@@ -27,7 +27,10 @@ class SdrCostForm extends React.Component {
                     <label>Your organization's annualized average deal size?</label>
                     <div className='fields'>
                         <div className='sixteen wide field'>
-                            <LabeledTextField placeholder='The amount in dollars' />
+                            <LabeledTextField placeholder='The amount in dollars' 
+                                fieldValue={acv}
+                                onFieldChange={text => dispatch(setAcv(text)) }
+                            />
                         </div>
                     </div>
                 </div>
@@ -38,7 +41,8 @@ class SdrCostForm extends React.Component {
 
 function select(state) {
     return {
-        totalComp: state.totalComp
+        totalComp: state.totalComp,
+        acv: state.acv
     }
 }
 
