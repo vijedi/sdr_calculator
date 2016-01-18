@@ -15,6 +15,10 @@ let store = createStore(sdrCalcApp, {
             acv: 2000,
             grossMargin: 70,
             profit: 1.2
+        },
+        ratesForm: {
+            winRates: [10, 25, 33],
+            conversionRates: [10, 25, 33]
         }
     }
 );

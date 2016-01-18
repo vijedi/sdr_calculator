@@ -24,8 +24,16 @@ function sdrForm(state = {}, action) {
     }
 }
 
+function ratesForm(state = {}, action) {
+    switch(action.type) {
+        default: 
+            return state;
+    }
+}
+
 const sdrCalcApp = combineReducers({
-    sdrForm
+    sdrForm,
+    ratesForm
 });
 
 export default sdrCalcApp
