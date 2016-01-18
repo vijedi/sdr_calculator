@@ -4,11 +4,21 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {setTotalComp} from './actions/actions.js';
 import SdrCostForm from './components/sdr-cost-form.jsx';
+import HungrySdrChart from './components/hungry-sdr-chart.jsx';
 import Masthead from './components/masthead.jsx';
 import sdrCalcApp from './reducers/reducers';
 
 
-let store = createStore(sdrCalcApp);
+let store = createStore(sdrCalcApp, {
+        sdrForm: {
+            totalComp: 54000,
+            acv: 2000,
+            grossMargin: 70,
+            profit: 1.2
+        }
+    }
+);
+
 
 renderForm();
 
@@ -20,7 +30,7 @@ function renderForm() {
                 <div className='ui vertical stripe segment'>
                    <div className='ui middle aligned stackable grid container'>
                        <div className='row'>
-                           <div className='eight wide column'>
+                           <div className='ten wide column'>
                                <h3 className='ui header'>SDR Success is About Leads</h3>
                                <p>When you boil it down the success of your SDR team depends on the number of 
                                prospects you put in front of them. I've created this calculator to help you figure 
@@ -36,6 +46,16 @@ function renderForm() {
                            </div>
                        </div>
                    </div>
+                </div>
+                <div className='ui vertical stripe segment'>
+                    <div className='ui middle aligned stackable grid container'>
+                        <div className='row'>
+                            <div className='sixteen wide column'>
+                                <h2>How Hungry is Your SDR?</h2>
+                            </div>
+                        </div>
+                        <HungrySdrChart />
+                    </div>
                 </div>
             </div>
         </Provider>

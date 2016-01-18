@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setTotalComp, setAcv } from '../actions/actions';
+import { setTotalComp, setAcv, setGrossMargin, setProfit } from '../actions/actions';
 import LabeledTextField from './labeled-text-field.jsx';
 
 class SdrCostForm extends React.Component {
@@ -10,7 +10,7 @@ class SdrCostForm extends React.Component {
     }
 
     render() { 
-        const { dispatch, totalComp, acv } = this.props;
+        const { dispatch, totalComp, acv, grossMargin, profit } = this.props;
         return (
             <form className='ui form'>
                 <h3 className='ui dividing header'>Do You Have Enough Leads?</h3>
@@ -21,6 +21,7 @@ class SdrCostForm extends React.Component {
                             <LabeledTextField placeholder='The total annual cost in dollars' 
                                 fieldValue={totalComp}
                                 onFieldChange={text => dispatch(setTotalComp(text)) }
+                                label='$'
                             />
                         </div>
                     </div>
@@ -30,6 +31,29 @@ class SdrCostForm extends React.Component {
                             <LabeledTextField placeholder='The amount in dollars' 
                                 fieldValue={acv}
                                 onFieldChange={text => dispatch(setAcv(text)) }
+                                label='$'
+                            />
+                        </div>
+                    </div>
+                    <label>Your organization's gross margin?</label>
+                    <div className='fields'>
+                        <div className='six wide field'>
+                            <LabeledTextField placeholder='a percent' 
+                                fieldValue={grossMargin}
+                                onFieldChange={text => dispatch(setGrossMargin(text)) }
+                                label='%'
+                                labelPlacement='right'
+                            />
+                        </div>
+                    </div>
+                    <label>Your desired sales profitablilty?</label>
+                    <div className='fields'>
+                        <div className='six wide field'>
+                            <LabeledTextField placeholder='a multiple' 
+                                fieldValue={profit}
+                                onFieldChange={text => dispatch(setProfit(text)) }
+                                label="x"
+                                labelPlacement='right'
                             />
                         </div>
                     </div>
@@ -40,9 +64,12 @@ class SdrCostForm extends React.Component {
 }
 
 function select(state) {
+    var sdrForm = state.sdrForm
     return {
-        totalComp: state.totalComp,
-        acv: state.acv
+        totalComp: sdrForm.totalComp,
+        acv: sdrForm.acv,
+        grossMargin: sdrForm.grossMargin,
+        profit: sdrForm.profit
     }
 }
 
