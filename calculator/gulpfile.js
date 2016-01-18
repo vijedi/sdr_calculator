@@ -63,6 +63,7 @@ gulp.task('images', function() {
 gulp.task('vendorjs', function() {
     return gulp.src([
                 'src/js/vendor/jquery-2.1.4.js',
+                'src/js/vendor/numeral-1.4.5.min.js',
                 'src/js/vendor/semantic.min.js'
             ]).
             pipe(concat('vendor.min.js')).
@@ -84,9 +85,9 @@ gulp.task('appjs', function() {
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         // Add gulp plugins to the pipeline here.
-        .pipe(uglify())
+//        .pipe(uglify())
         .on('error', gutil.log)
-        .pipe(sourcemaps.write('./'))
+//        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('./dist/assets/js'));
 
     // "globby" replaces the normal "gulp.src" as Browserify

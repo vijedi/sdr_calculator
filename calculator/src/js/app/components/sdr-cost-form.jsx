@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { setTotalComp } from '../actions/actions';
 import LabeledTextField from './labeled-text-field.jsx';
 
 class SdrCostForm extends React.Component {
@@ -8,6 +10,7 @@ class SdrCostForm extends React.Component {
     }
 
     render() { 
+        const { dispatch, totalComp } = this.props;
         return (
             <form className='ui form'>
                 <h3 className='ui dividing header'>Do You Have Enough Leads?</h3>
@@ -15,7 +18,10 @@ class SdrCostForm extends React.Component {
                     <label>How much is the total comp for an SDR?</label>
                     <div className='fields'>
                         <div className='sixteen wide field'>
-                            <LabeledTextField placeholder='The total annual cost in dollars' />
+                            <LabeledTextField placeholder='The total annual cost in dollars' 
+                                fieldValue={totalComp}
+                                onFieldChange={text => dispatch(setTotalComp(text)) }
+                            />
                         </div>
                     </div>
                     <label>Your organization's annualized average deal size?</label>
@@ -30,4 +36,11 @@ class SdrCostForm extends React.Component {
     }
 }
 
-export default SdrCostForm;
+function select(state) {
+    return {
+        totalComp: state.totalComp
+    }
+}
+
+export default connect(select)(SdrCostForm);
+

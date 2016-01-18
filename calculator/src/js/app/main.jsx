@@ -2,6 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
+import {setTotalComp} from './actions/actions.js';
 import SdrCostForm from './components/sdr-cost-form.jsx';
 import Masthead from './components/masthead.jsx';
 import sdrCalcApp from './reducers/reducers';
@@ -28,7 +29,9 @@ function renderForm() {
                            </div>
                            <div className='six wide right floated column'>
                                <div className='ui inverted raised segment grid container'>
-                                   <SdrCostForm />
+                                   <SdrCostForm 
+                                        onSdrCompChanged={text => dispatch(setTotalComp(text))}
+                                   />
                                </div>
                            </div>
                        </div>
