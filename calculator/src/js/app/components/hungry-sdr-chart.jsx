@@ -7,7 +7,7 @@ export default class HungrySdrChart extends Component {
 
     render() {
         const {winRates, conversionRates} = this.props;
-
+    
         return (
             <div className='row'>
                 <div className='sixteen wide column'>

@@ -64,6 +64,7 @@ gulp.task('vendorjs', function() {
     return gulp.src([
                 'src/js/vendor/jquery-2.1.4.js',
                 'src/js/vendor/numeral-1.4.5.min.js',
+                'src/js/vendor/d3-3.5.12.js',
                 'src/js/vendor/semantic.min.js'
             ]).
             pipe(concat('vendor.min.js')).
