@@ -9,7 +9,6 @@ export default class TableCell extends Component {
     }
     
     render() {
-
         if(this.props.winRate) {
             return (
                 <td><span className='textValue' ref='computedTextValue' data-value={this.state.value}>0</span></td>
@@ -19,32 +18,42 @@ export default class TableCell extends Component {
         }
     }
     
+    computedValue(props) {
+        const { totalComp, acv, grossMargin, profit, winRate, conversionRate } = props;
+        let tc = parseFloat(totalComp);
+        let mg = parseFloat(grossMargin);
+        let acvf = parseFloat(acv);
+        let sp = parseFloat(profit);
+        return 1.0 * (tc / (mg * 0.01 * acvf)) * (sp / (.01 * winRate * .01 * conversionRate));
+    }
+
     componentWillReceiveProps(nextProps) {
-        const { totalComp, acv, grossMargin, profit, winRate, conversionRate } = nextProps;
-        let computedValue = () => {
-            let tc = parseFloat(totalComp);
-            let mg = parseFloat(grossMargin);
-            let acvf = parseFloat(acv);
-            let sp = parseFloat(profit);
-            return 1.0 * (tc / (mg * 0.01 * acvf)) * (sp / (.01 * winRate * .01 * conversionRate));
-        };       
         if(nextProps.winRate) {
-            this.setState({value: computedValue()})
+            this.setState({value: this.computedValue(nextProps)})
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    updateCellValue(valueOld, valueNew) {
         const mySpan = this.refs.computedTextValue;
-        const valueOld = prevState.value;
-        const valueNew = this.state.value;
         d3.select(mySpan).transition().
             duration(750).tween('text', () => {
             var i = d3.interpolateRound(valueOld, valueNew);
             return function(t) {
-                this.textContent = i(t);
+                this.textContent = d3.format('0,000')(i(t));
             }
         });
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        const valueOld = prevState.value;
+        const valueNew = this.state.value;
+        this.updateCellValue(valueOld, valueNew);
+    }
+
+    componentDidMount() {
+        this.updateCellValue(0, this.computedValue(this.props));
+    }
+
 }
 
 function select(state) {
