@@ -35,11 +35,15 @@ function renderForm() {
                    <div className='ui middle aligned stackable grid container'>
                        <div className='row'>
                            <div className='ten wide column'>
-                               <h3 className='ui header'>SDR Success is About Leads</h3>
+                               <h1 className='ui header'>SDR Success is About Leads</h1>
                                <p>When you boil it down the success of your SDR team depends on the number of 
                                prospects you put in front of them. I've created this calculator to help you figure 
                                out how many leads you will need to achieve the  desired ROI on a fully ramped SDR.
                                </p>
+                               <hr />
+                               <h3>How Hungry is Your SDR?</h3>
+                               <HungrySdrChart />
+
                            </div>
                            <div className='six wide right floated column'>
                                <div className='ui inverted raised segment grid container'>
@@ -50,16 +54,6 @@ function renderForm() {
                            </div>
                        </div>
                    </div>
-                </div>
-                <div className='ui vertical stripe segment'>
-                    <div className='ui middle aligned stackable grid container'>
-                        <div className='row'>
-                            <div className='sixteen wide column'>
-                                <h2>How Hungry is Your SDR?</h2>
-                            </div>
-                        </div>
-                        <HungrySdrChart />
-                    </div>
                 </div>
             </div>
         </Provider>

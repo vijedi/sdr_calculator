@@ -13,7 +13,7 @@ class SdrCostForm extends React.Component {
         const { dispatch, totalComp, acv, grossMargin, profit } = this.props;
         return (
             <form className='ui form'>
-                <h3 className='ui dividing header'>Do You Have Enough Leads?</h3>
+                <h3 className='ui inverted dividing header'>Do You Have Enough Leads?</h3>
                 <div className='field'>
                     <label>How much is the total comp for an SDR?</label>
                     <div className='fields'>

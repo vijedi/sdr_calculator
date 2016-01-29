@@ -21,5 +21,21 @@
                 font-size: 2em;
             }
         }
+
+        .inverted {
+            label {
+                color: rgba(255, 255, 255, 0.9);
+            }
+        }
+        
+        &.inverted.segment {
+            background-color: #8799b7;
+            padding: 15px 10px;
+        }
+
+        &.celled.definition.table thead:not(.full-width) th:first-child {
+            box-shadow: 0 -1px 0 1px #f9f9f9;
+            background: #f9f9f9;
+        }
     }     
 }
