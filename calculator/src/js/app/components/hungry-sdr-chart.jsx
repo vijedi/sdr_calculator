@@ -12,6 +12,7 @@ export default class HungrySdrChart extends Component {
             <div className='row'>
                 <div className='sixteen wide column'>
                     <table className='ui celled padded definition table leadsTable'>
+                        <caption className='ui table caption'>Conversion Rates vs Win Rates</caption>
                         <thead>
                             <tr>
                                 <th></th>

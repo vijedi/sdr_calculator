@@ -10,7 +10,8 @@ class SdrCostForm extends React.Component {
     }
 
     render() { 
-        const { dispatch, totalComp, acv, grossMargin, profit } = this.props;
+        const { dispatch, totalComp, acv, grossMargin, profit, 
+                conversionRate, winRate } = this.props;
         return (
             <form className='ui form'>
                 <h3 className='ui inverted dividing header'>Do You Have Enough Leads?</h3>
@@ -20,7 +21,7 @@ class SdrCostForm extends React.Component {
                         <div className='sixteen wide field'>
                             <LabeledTextField placeholder='The total annual cost in dollars' 
                                 fieldValue={totalComp}
-                                onFieldChange={text => dispatch(setTotalComp(text)) }
+                                onFieldChange={text => dispatch(setTotalComp(text))}
                                 label='$'
                             />
                         </div>
@@ -30,7 +31,7 @@ class SdrCostForm extends React.Component {
                         <div className='sixteen wide field'>
                             <LabeledTextField placeholder='The amount in dollars' 
                                 fieldValue={acv}
-                                onFieldChange={text => dispatch(setAcv(text)) }
+                                onFieldChange={text => dispatch(setAcv(text))}
                                 label='$'
                             />
                         </div>
@@ -40,7 +41,7 @@ class SdrCostForm extends React.Component {
                         <div className='six wide field'>
                             <LabeledTextField placeholder='a percent' 
                                 fieldValue={grossMargin}
-                                onFieldChange={text => dispatch(setGrossMargin(text)) }
+                                onFieldChange={text => dispatch(setGrossMargin(text))}
                                 label='%'
                                 labelPlacement='right'
                             />
@@ -51,8 +52,30 @@ class SdrCostForm extends React.Component {
                         <div className='six wide field'>
                             <LabeledTextField placeholder='a multiple' 
                                 fieldValue={profit}
-                                onFieldChange={text => dispatch(setProfit(text)) }
+                                onFieldChange={text => dispatch(setProfit(text))}
                                 label="x"
+                                labelPlacement='right'
+                            />
+                        </div>
+                    </div>
+                    <label>Conversion Rate</label>
+                    <div className='fields'>
+                        <div className='six wide field'>
+                            <LabeledTextField placeholder='Leads to SQLs'
+                                fieldValue={conversionRate}
+                                onFieldChange={text => dispatch(setConversionRate(text))}
+                                label="%"
+                                labelPlacement='right'
+                            />
+                        </div>
+                    </div>
+                    <label>Win Rate</label>
+                    <div className='fields'>
+                        <div className='six wide field'>
+                            <LabeledTextField placeholder='SQLs to Wins'
+                                fieldValue={winRate}
+                                onFieldChange={text => dispatch(setWinRate(text))}
+                                label="%"
                                 labelPlacement='right'
                             />
                         </div>
@@ -69,7 +92,9 @@ function select(state) {
         totalComp: sdrForm.totalComp,
         acv: sdrForm.acv,
         grossMargin: sdrForm.grossMargin,
-        profit: sdrForm.profit
+        profit: sdrForm.profit,
+        conversionRate: sdrForm.conversionRate,
+        winRate: sdrForm.winRate
     }
 }
 

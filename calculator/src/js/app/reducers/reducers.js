@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux'
-import {SET_TOTAL_COMP, SET_ACV, SET_GROSS_MARGIN, SET_PROFIT} from '../actions/actions'
+import {SET_TOTAL_COMP, SET_ACV, SET_GROSS_MARGIN, SET_PROFIT, 
+        SET_CONVERSION_RATE, SET_WIN_RATE} from '../actions/actions'
 
 function sdrForm(state = {}, action) {
     switch(action.type) {
@@ -18,6 +19,14 @@ function sdrForm(state = {}, action) {
         case SET_PROFIT: 
             return Object.assign({}, state, {
                 profit: action.profit
+            });
+        case SET_CONVERSION_RATE: 
+            return Object.assign({}, state, {
+                conversionRate: action.conversionRate
+            });
+        case SET_WIN_RATE:
+            return Object.assign({}, state, {
+                winRate: action.winRate
             });
         default: 
             return state;
