@@ -6,6 +6,7 @@ import {setTotalComp} from './actions/actions.js';
 import SdrCostForm from './components/sdr-cost-form.jsx';
 import HungrySdrChart from './components/hungry-sdr-chart.jsx';
 import Masthead from './components/masthead.jsx';
+import OpportunityWonDetails from './components/opportunity-won-details.jsx';
 import sdrCalcApp from './reducers/reducers';
 
 
@@ -26,9 +27,9 @@ let store = createStore(sdrCalcApp, {
 );
 
 
-renderForm();
+renderApp();
 
-function renderForm() {
+function renderApp() {
     render(
         <Provider store={store}>
             <div className='pusher'>
@@ -45,6 +46,7 @@ function renderForm() {
                                <hr />
                                <h3>How Hungry is Your SDR?</h3>
                                <HungrySdrChart />
+                               <OpportunityWonDetails />
 
                            </div>
                            <div className='six wide right floated column'>
