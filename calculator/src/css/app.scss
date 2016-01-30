@@ -37,5 +37,21 @@
             box-shadow: 0 -1px 0 1px #f9f9f9;
             background: #f9f9f9;
         }
+
+        &.table td, th {
+            font-size: 1.3em;
+        }
+
+        td.your-win-rate, th.your-win-rate {
+            background: #B7A787;
+        }
+
+        tr.your-conversion-rate-row td {
+            background: #B7A787;
+            &.your-win-rate {
+                background: #6A5A39;
+            }
+        }
+        
     }     
 }

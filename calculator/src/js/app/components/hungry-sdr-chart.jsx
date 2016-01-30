@@ -12,34 +12,36 @@ export default class HungrySdrChart extends Component {
             <div className='row'>
                 <div className='sixteen wide column'>
                     <table className='ui celled padded definition table leadsTable'>
-                        <caption className='ui table caption'>Conversion Rates vs Win Rates</caption>
+                        <caption className='ui caption'>Annualized # of Leads</caption>
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>Conversion % <br />VS Win Rate</th>
                                 {winRates.map((wr, index) => {
                                     return <th key={'hdr0,' + index}>{wr}%</th>
                                 })}
-                                <th>{winRate}%</th>
+                                <th className='your-win-rate'>{winRate}%</th>
                             </tr>
                         </thead>
                         <tbody>
                             {conversionRates.map(function(cr, rIdx) {
                                 return (
                                     <tr key={'hsr' + rIdx}>
-                                        <TableCell key={'hsr' + rIdx + ',0' } conversionRate={cr} />
+                                        <TableCell className='' key={'hsr' + rIdx + ',0' } conversionRate={cr} />
                                         {winRates.map((value, cIdx) => {
-                                            return (<TableCell key={'hsr' + rIdx + ',' + cIdx} conversionRate={cr} winRate={value} />)
+                                            return (<TableCell className='' key={'hsr' + rIdx + ',' + cIdx} conversionRate={cr} winRate={value} />)
                                         })}
-                                        <TableCell key={'hsr' + rIdx + ',userWinRate'} conversionRate={cr} winRate={winRate} />
+                                        <TableCell className='your-win-rate' key={'hsr' + rIdx + ',userWinRate'} conversionRate={cr} winRate={winRate} />
                                     </tr>
                                 )
                             })}
-                            <tr key={'hsr_userConversionRate'}>
+                            <tr className='your-conversion-rate-row' key={'hsr_userConversionRate'}>
                                 <TableCell key={'hsr_userConversionRate,0'} conversionRate={conversionRate} />
                                 {winRates.map((value, cIdx) => {
-                                    return (<TableCell key={'hsr_userConversionRate' + ',' + cIdx} conversionRate={conversionRate} winRate={value} />)
+                                    return (<TableCell key={'hsr_userConversionRate' + ',' + cIdx} 
+                                            conversionRate={conversionRate} winRate={value} />)
                                 })}
-                                <TableCell key={'hsr_userConversionRate,userWinRate'} conversionRate={conversionRate} winRate={winRate} />
+                                <TableCell className='your-win-rate' 
+                                    key={'hsr_userConversionRate,userWinRate'} conversionRate={conversionRate} winRate={winRate} />
                             </tr>
                         </tbody>
                     </table>

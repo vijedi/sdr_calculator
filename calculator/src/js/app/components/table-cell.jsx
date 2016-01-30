@@ -11,7 +11,7 @@ export default class TableCell extends Component {
     render() {
         if(this.props.winRate) {
             return (
-                <td><span className='textValue' ref='computedTextValue' data-value={this.state.value}>0</span></td>
+                <td className={this.props.className} ><span className='textValue' ref='computedTextValue' data-value={this.state.value}>0</span></td>
             )     
         } else {
             return <td>{this.props.conversionRate}%</td>
@@ -68,7 +68,8 @@ function select(state) {
 
 TableCell.propTypes = {
     winRate: PropTypes.number,
-    conversionRate: PropTypes.number.isRequired
+    conversionRate: PropTypes.number.isRequired,
+    className: PropTypes.string
 };
 
 export default connect(select)(TableCell);
