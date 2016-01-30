@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setTotalComp, setAcv, setGrossMargin, setProfit } from '../actions/actions';
+import { setTotalComp, setAcv, setGrossMargin, setProfit, setConversionRate, setWinRate } from '../actions/actions';
 import LabeledTextField from './labeled-text-field.jsx';
 
 class SdrCostForm extends React.Component {
@@ -87,7 +87,7 @@ class SdrCostForm extends React.Component {
 }
 
 function select(state) {
-    var sdrForm = state.sdrForm
+    var sdrForm = state.sdrForm;
     return {
         totalComp: sdrForm.totalComp,
         acv: sdrForm.acv,
@@ -95,7 +95,7 @@ function select(state) {
         profit: sdrForm.profit,
         conversionRate: sdrForm.conversionRate,
         winRate: sdrForm.winRate
-    }
+    };
 }
 
 export default connect(select)(SdrCostForm);

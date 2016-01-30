@@ -6,7 +6,7 @@ import TableCell from './table-cell.jsx';
 export default class HungrySdrChart extends Component {
 
     render() {
-        const {winRates, conversionRates} = this.props;
+        const {winRates, conversionRates, winRate, conversionRate} = this.props;
     
         return (
             <div className='row'>
@@ -16,9 +16,10 @@ export default class HungrySdrChart extends Component {
                         <thead>
                             <tr>
                                 <th></th>
-                                {winRates.map((winRate, index) => {
-                                    return <th key={'hdr0,' + index}>{winRate}%</th>
+                                {winRates.map((wr, index) => {
+                                    return <th key={'hdr0,' + index}>{wr}%</th>
                                 })}
+                                <th>{winRate}%</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,9 +30,17 @@ export default class HungrySdrChart extends Component {
                                         {winRates.map((value, cIdx) => {
                                             return (<TableCell key={'hsr' + rIdx + ',' + cIdx} conversionRate={cr} winRate={value} />)
                                         })}
+                                        <TableCell key={'hsr' + rIdx + ',userWinRate'} conversionRate={cr} winRate={winRate} />
                                     </tr>
                                 )
                             })}
+                            <tr key={'hsr_userConversionRate'}>
+                                <TableCell key={'hsr_userConversionRate,0'} conversionRate={conversionRate} />
+                                {winRates.map((value, cIdx) => {
+                                    return (<TableCell key={'hsr_userConversionRate' + ',' + cIdx} conversionRate={conversionRate} winRate={value} />)
+                                })}
+                                <TableCell key={'hsr_userConversionRate,userWinRate'} conversionRate={conversionRate} winRate={winRate} />
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -41,7 +50,12 @@ export default class HungrySdrChart extends Component {
 }
 
 function select(state) {
-    return state.ratesForm;
+    return { 
+        winRates: state.ratesForm.winRates,
+        conversionRates: state.ratesForm.conversionRates,
+        winRate: state.sdrForm.winRate,
+        conversionRate: state.sdrForm.conversionRate
+    };
 }
 
 export default connect(select)(HungrySdrChart);
