@@ -52,6 +52,20 @@
                 background: #6A5A39;
             }
         }
+
+        &.footer.inverted {
+            padding: 4em 0;
+            background: #292E37;
+            .inverted.segment {
+                &.padded {
+                    padding-top: 3em;
+                }
+                background: #292E37;
+            }
+            a {
+                text-decoration: underline;
+            }
+        }
         
     }     
 }

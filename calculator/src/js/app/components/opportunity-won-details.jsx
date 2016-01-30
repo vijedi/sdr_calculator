@@ -12,7 +12,7 @@ export default class OpportunityWonDetails extends Component {
         let value = Math.round(1.0 * (tc / (mg * 0.01 * acvf) * sp));
 
         return (
-            <h4>Sales will have to close an additional {value} deals
+            <h4>Sales will have to close an additional <strong>{value}</strong> deals
                 to support this SDR</h4>
         )
     }
