@@ -24,7 +24,15 @@ export default class TableCell extends Component {
         let mg = parseFloat(grossMargin);
         let acvf = parseFloat(acv);
         let sp = parseFloat(profit);
-        return 1.0 * (tc / (mg * 0.01 * acvf)) * (sp / (.01 * winRate * .01 * conversionRate));
+        let wr = parseFloat(winRate);
+        let cr = parseFloat(conversionRate);
+
+        let computed = 1.0 * (tc / (mg * 0.01 * acvf)) * (sp / (.01 * wr * .01 * cr));
+        if(isNaN(computed)) {
+            return "-";
+        } else {
+            return computed;
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -35,12 +43,19 @@ export default class TableCell extends Component {
 
     updateCellValue(valueOld, valueNew) {
         const mySpan = this.refs.computedTextValue;
+        let startValue = ("-" == valueOld) ? 0 : valueOld;
         d3.select(mySpan).transition().
             duration(750).tween('text', () => {
-            var i = d3.interpolateRound(valueOld, valueNew);
-            return function(t) {
-                this.textContent = d3.format('0,000')(i(t));
-            }
+                if("-" == valueNew) {
+                    return function(t) {
+                        this.textContent = valueNew;
+                    }
+                } else {
+                    var i = d3.interpolateRound(startValue, valueNew);
+                    return function(t) {
+                        this.textContent = d3.format('0,000')(i(t));
+                    }
+                }
         });
     }
 

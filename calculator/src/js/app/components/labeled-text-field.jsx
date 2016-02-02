@@ -27,7 +27,7 @@ export default class LabeledTextField extends Component {
     handleChange(e) {
         const node = this.refs.input;
         const text = node.value.trim();
-        const cleanedValue = text.replace(/[\D.]+/, '');
+        const cleanedValue = text.replace(/[^\d.]+/, '');
         this.props.onFieldChange(cleanedValue);
     }
 }
