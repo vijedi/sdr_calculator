@@ -12,6 +12,7 @@ export default class LabeledTextField extends Component {
                 })()}
                 <input type='text' placeholder={this.props.placeholder} 
                     onChange={(e) => this.handleChange(e)}
+                    onFocus={(e) => this.selectAll(e)}
                     defaultValue={this.props.fieldValue}
                     ref='input'
                 />
@@ -29,6 +30,11 @@ export default class LabeledTextField extends Component {
         const text = node.value.trim();
         const cleanedValue = text.replace(/[^\d.]+/, '');
         this.props.onFieldChange(cleanedValue);
+    }
+
+    selectAll(e) {
+        const node = this.refs.input;
+        $(node).select();
     }
 }
 

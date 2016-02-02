@@ -28,7 +28,7 @@ export default class TableCell extends Component {
         let cr = parseFloat(conversionRate);
 
         let computed = 1.0 * (tc / (mg * 0.01 * acvf)) * (sp / (.01 * wr * .01 * cr));
-        if(isNaN(computed)) {
+        if(isNaN(computed) || !isFinite(computed)) {
             return "-";
         } else {
             return computed;
